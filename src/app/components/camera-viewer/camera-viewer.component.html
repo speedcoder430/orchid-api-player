@@ -1,0 +1,40 @@
+<div class="all-content">
+  <div class="project-title">Orchid Simple Camera Viewer</div>
+
+  <div class="camera-viewer">
+    <!-- Left: Camera List -->
+    <div class="camera-grid">
+      <div
+        *ngFor="let camera of cameras()"
+        class="camera-card"
+        [class.selected]="selectedCamera()?.id === camera.id"
+        (click)="selectCamera(camera)"
+      >
+        <ng-container *ngIf="getImageUrl(camera.id); else noImage">
+          <img [src]="getImageUrl(camera.id)" alt="{{ camera.name }}" />
+        </ng-container>
+        <ng-template #noImage>
+          <span class="loader"></span>
+        </ng-template>
+        <h3>{{ camera.name }}</h3>
+      </div>
+    </div>
+
+    <!-- Right: Selected Camera Details -->
+    <div class="camera-details">
+      <ng-container *ngIf="selectedCamera(); else noSelection">
+        <h3>{{ selectedCamera()?.name }}</h3>
+        <!-- Show selected camera image -->
+        <img
+          id="selectedCameraImage"
+          [src]="getSelectedImageUrl()"
+          alt="Selected Camera"
+          class="selected-camera"
+        />
+      </ng-container>
+      <ng-template #noSelection>
+        <p>No camera selected!</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

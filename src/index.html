@@ -1,15 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Project</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body class="mat-typography">
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Project</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="mat-typography">
+    <app-root></app-root>
+    <script>
+      console.log("Camera Viewer Component Loaded");
+
+      async function updateSelectedImage() {
+        let img = document.getElementById("selectedCameraImage");
+        if (img && window.getSelectedImageUrl) {
+          try {
+            let newSrc = await window.getSelectedImageUrl(); // ? Wait for the image URL
+            if (newSrc) {
+              img.src = newSrc; // ? Update the image
+              console.log("Updated selected camera image:", img.src);
+            }
+          } catch (error) {
+            console.error("Error updating selected camera image:", error);
+          }
+        }
+      }
+
+      setInterval(updateSelectedImage, 5000);
+    </script>
+  </body>
 </html>
